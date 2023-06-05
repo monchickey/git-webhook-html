@@ -1,0 +1,245 @@
+Request URL: http://115.29.239.148:10899/
+Request Method: POST
+X-Git-Oschina-Event: Push Hook
+X-Gitee-Token: 123456
+X-Gitee-Event: Push Hook
+User-Agent: git-oschina-hook
+X-Gitee-Timestamp: 1685850722483
+X-Gitee-Ping: false
+Content-Type: application/json
+
+{
+  "after": "fd3a9a95fbc8686e00fe3cb844936ea4b5fe8f43",
+  "before": "20527c40960c319a72a7867c58682317f0391cc4",
+  "commits": [
+    {
+      "added": [
+        "README.md"
+      ],
+      "author": {
+        "email": "yhxingkong@126.com",
+        "id": 5530774,
+        "name": "heluo-xx",
+        "remark": null,
+        "time": "2023-06-04T03:52:01+00:00",
+        "url": "https://gitee.com/heluo-xx",
+        "user": null,
+        "user_name": "heluo-xx",
+        "username": "heluo-xx"
+      },
+      "committer": {
+        "email": "noreply@gitee.com",
+        "id": 10186697,
+        "name": "Gitee GPG Bot",
+        "remark": null,
+        "time": null,
+        "url": "https://gitee.com/gitee-bot",
+        "user": null,
+        "user_name": "gitee-bot",
+        "username": "gitee-bot"
+      },
+      "distinct": true,
+      "id": "fd3a9a95fbc8686e00fe3cb844936ea4b5fe8f43",
+      "message": "add README.md.\n\nSigned-off-by: heluo-xx ",
+      "modified": [
+
+      ],
+      "parent_ids": [
+        "20527c40960c319a72a7867c58682317f0391cc4"
+      ],
+      "removed": [
+
+      ],
+      "timestamp": "2023-06-04T03:52:01+00:00",
+      "tree_id": "7e12d34626daeb4a3a473d1df82a8009306f35c1",
+      "url": "https://gitee.com/heluo-xx/hook-test/commit/fd3a9a95fbc8686e00fe3cb844936ea4b5fe8f43"
+    }
+  ],
+  "commits_more_than_ten": false,
+  "compare": "https://gitee.com/heluo-xx/hook-test/compare/20527c40960c319a72a7867c58682317f0391cc4...fd3a9a95fbc8686e00fe3cb844936ea4b5fe8f43",
+  "created": false,
+  "deleted": false,
+  "enterprise": null,
+  "head_commit": {
+    "added": [
+      "README.md"
+    ],
+    "author": {
+      "email": "yhxingkong@126.com",
+      "id": 5530774,
+      "name": "heluo-xx",
+      "remark": null,
+      "time": "2023-06-04T03:52:01+00:00",
+      "url": "https://gitee.com/heluo-xx",
+      "user": null,
+      "user_name": "heluo-xx",
+      "username": "heluo-xx"
+    },
+    "committer": {
+      "email": "noreply@gitee.com",
+      "id": 10186697,
+      "name": "Gitee GPG Bot",
+      "remark": null,
+      "time": null,
+      "url": "https://gitee.com/gitee-bot",
+      "user": null,
+      "user_name": "gitee-bot",
+      "username": "gitee-bot"
+    },
+    "distinct": true,
+    "id": "fd3a9a95fbc8686e00fe3cb844936ea4b5fe8f43",
+    "message": "add README.md.\n\nSigned-off-by: heluo-xx ",
+    "modified": [
+
+    ],
+    "parent_ids": [
+      "20527c40960c319a72a7867c58682317f0391cc4"
+    ],
+    "removed": [
+
+    ],
+    "timestamp": "2023-06-04T03:52:01+00:00",
+    "tree_id": "7e12d34626daeb4a3a473d1df82a8009306f35c1",
+    "url": "https://gitee.com/heluo-xx/hook-test/commit/fd3a9a95fbc8686e00fe3cb844936ea4b5fe8f43"
+  },
+  "hook_id": 1292668,
+  "hook_name": "push_hooks",
+  "hook_url": "https://gitee.com/heluo-xx/hook-test/hooks/1292668/edit",
+  "password": "123456",
+  "project": {
+    "clone_url": "https://gitee.com/heluo-xx/hook-test.git",
+    "created_at": "2023-06-04T11:49:52+08:00",
+    "default_branch": "main",
+    "description": "",
+    "fork": false,
+    "forks_count": 0,
+    "full_name": "heluo-xx/hook-test",
+    "git_http_url": "https://gitee.com/heluo-xx/hook-test.git",
+    "git_ssh_url": "git@gitee.com:heluo-xx/hook-test.git",
+    "git_svn_url": "svn://gitee.com/heluo-xx/hook-test",
+    "git_url": "git://gitee.com/heluo-xx/hook-test.git",
+    "has_issues": true,
+    "has_pages": false,
+    "has_wiki": true,
+    "homepage": null,
+    "html_url": "https://gitee.com/heluo-xx/hook-test",
+    "id": 29516893,
+    "language": "Rust",
+    "license": null,
+    "name": "hook-test",
+    "name_with_namespace": "heluo-xx/hook-test",
+    "namespace": "heluo-xx",
+    "open_issues_count": 0,
+    "owner": {
+      "avatar_url": "https://foruda.gitee.com/avatar/1677057285282081877/5530774_heluo-xx_1578988118.png",
+      "email": "yhxingkong@126.com",
+      "html_url": "https://gitee.com/heluo-xx",
+      "id": 5530774,
+      "login": "heluo-xx",
+      "name": "heluo-xx",
+      "remark": null,
+      "site_admin": false,
+      "type": "User",
+      "url": "https://gitee.com/heluo-xx",
+      "user_name": "heluo-xx",
+      "username": "heluo-xx"
+    },
+    "path": "hook-test",
+    "path_with_namespace": "heluo-xx/hook-test",
+    "private": true,
+    "pushed_at": "2023-06-04T11:52:02+08:00",
+    "ssh_url": "git@gitee.com:heluo-xx/hook-test.git",
+    "stargazers_count": 0,
+    "svn_url": "svn://gitee.com/heluo-xx/hook-test",
+    "updated_at": "2023-06-04T11:52:02+08:00",
+    "url": "https://gitee.com/heluo-xx/hook-test",
+    "watchers_count": 1
+  },
+  "push_data": null,
+  "pusher": {
+    "email": "yhxingkong@126.com",
+    "id": 5530774,
+    "name": "heluo-xx",
+    "url": "https://gitee.com/heluo-xx",
+    "user_name": "heluo-xx",
+    "username": "heluo-xx"
+  },
+  "ref": "refs/heads/main",
+  "repository": {
+    "clone_url": "https://gitee.com/heluo-xx/hook-test.git",
+    "created_at": "2023-06-04T11:49:52+08:00",
+    "default_branch": "main",
+    "description": "",
+    "fork": false,
+    "forks_count": 0,
+    "full_name": "heluo-xx/hook-test",
+    "git_http_url": "https://gitee.com/heluo-xx/hook-test.git",
+    "git_ssh_url": "git@gitee.com:heluo-xx/hook-test.git",
+    "git_svn_url": "svn://gitee.com/heluo-xx/hook-test",
+    "git_url": "git://gitee.com/heluo-xx/hook-test.git",
+    "has_issues": true,
+    "has_pages": false,
+    "has_wiki": true,
+    "homepage": null,
+    "html_url": "https://gitee.com/heluo-xx/hook-test",
+    "id": 29516893,
+    "language": "Rust",
+    "license": null,
+    "name": "hook-test",
+    "name_with_namespace": "heluo-xx/hook-test",
+    "namespace": "heluo-xx",
+    "open_issues_count": 0,
+    "owner": {
+      "avatar_url": "https://foruda.gitee.com/avatar/1677057285282081877/5530774_heluo-xx_1578988118.png",
+      "email": "yhxingkong@126.com",
+      "html_url": "https://gitee.com/heluo-xx",
+      "id": 5530774,
+      "login": "heluo-xx",
+      "name": "heluo-xx",
+      "remark": null,
+      "site_admin": false,
+      "type": "User",
+      "url": "https://gitee.com/heluo-xx",
+      "user_name": "heluo-xx",
+      "username": "heluo-xx"
+    },
+    "path": "hook-test",
+    "path_with_namespace": "heluo-xx/hook-test",
+    "private": true,
+    "pushed_at": "2023-06-04T11:52:02+08:00",
+    "ssh_url": "git@gitee.com:heluo-xx/hook-test.git",
+    "stargazers_count": 0,
+    "svn_url": "svn://gitee.com/heluo-xx/hook-test",
+    "updated_at": "2023-06-04T11:52:02+08:00",
+    "url": "https://gitee.com/heluo-xx/hook-test",
+    "watchers_count": 1
+  },
+  "sender": {
+    "avatar_url": "https://foruda.gitee.com/avatar/1677057285282081877/5530774_heluo-xx_1578988118.png",
+    "email": "yhxingkong@126.com",
+    "html_url": "https://gitee.com/heluo-xx",
+    "id": 5530774,
+    "login": "heluo-xx",
+    "name": "heluo-xx",
+    "remark": null,
+    "site_admin": false,
+    "type": "User",
+    "url": "https://gitee.com/heluo-xx",
+    "user_name": "heluo-xx",
+    "username": "heluo-xx"
+  },
+  "sign": "",
+  "timestamp": "1685850722483",
+  "total_commits_count": 1,
+  "user": {
+    "email": "yhxingkong@126.com",
+    "id": 5530774,
+    "name": "heluo-xx",
+    "url": "https://gitee.com/heluo-xx",
+    "user_name": "heluo-xx",
+    "username": "heluo-xx"
+  },
+  "user_email": "yhxingkong@126.com",
+  "user_id": 5530774,
+  "user_name": "heluo-xx"
+}
