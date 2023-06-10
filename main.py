@@ -22,7 +22,9 @@ from gitee_hook import GiteeHook
 from hugo_cmd import HugoCmd
 from mdbook_cmd import MdbookCmd
 
-# gunicorn -w 1 -b :5001 main:app
+"""gunicorn -w 1 -b :5001 -e GIT_URL=<clone-url> \
+      -e TOOL_TYPE=<hugo or mdbook> -e SECRET_KET=<Webhooks key> main:app
+"""
 
 # 日志目录
 LOG_DIR = './logs'
@@ -56,25 +58,20 @@ log.addHandler(log_handler)
 log.addHandler(logging.StreamHandler())
 
 # 参数处理
-arg_parser = argparse.ArgumentParser(description="document generation tool.")
-arg_parser.add_argument('--url', help='Git repository url')
-arg_parser.add_argument('--secret-key', help='Security token in webhook')
-arg_parser.add_argument('--tool-type', help='Types of document generation tools, support hugo and mdbook')
-args = arg_parser.parse_args()
-if not args.url:
-    arg_parser.print_help()
+if not os.getenv('GIT_URL'):
+    log.error("Environment variable GIT_URL does not exist.")
     sys.exit(-1)
-repo_url = args.url
-if not args.tool_type:
-    arg_parser.print_help()
+repo_url = os.getenv('GIT_URL')
+if not os.getenv('TOOL_TYPE'):
+    log.error("Environment variable TOOL_TYPE does not exist.")
     sys.exit(-1)
-if args.tool_type not in TOOL_TYPES:
-    log.error("Unsupported tool type: %s, supports hugo and mdbook", args.tool_type)
+tool_type = os.getenv('TOOL_TYPE')
+if tool_type not in TOOL_TYPES:
+    log.error("Unsupported tool type: %s, supports hugo and mdbook", tool_type)
     sys.exit(-1)
-tool_type = args.tool_type
 secret_key = ''
-if args.secret_key:
-    secret_key = args.secret_key
+if os.getenv('SECRET_KEY'):
+    secret_key = os.getenv('SECRET_KEY')
 
 # 检查 git 命令
 stat = util.execute_command('git --version')
