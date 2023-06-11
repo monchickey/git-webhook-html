@@ -16,7 +16,7 @@ class MdbookCmd:
         stat = util.execute_command('mdbook --version')
         if not stat or stat.returncode != 0:
             return False
-        mdbook_command = self.__doc_command.format(self.__src_dir, target=self.__output_dir)
+        mdbook_command = self.__doc_command.format(path=self.__src_dir, target=self.__output_dir)
         stat = util.execute_command(mdbook_command)
         if not stat or stat.returncode != 0:
             return False
