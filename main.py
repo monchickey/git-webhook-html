@@ -22,7 +22,7 @@ from gitee_hook import GiteeHook
 from hugo_cmd import HugoCmd
 from mdbook_cmd import MdbookCmd
 
-"""gunicorn -w 1 -b :5001 -e GIT_URL=<clone-url> \
+"""gunicorn -w 1 -b 127.0.0.1:5001 -e GIT_URL=<clone-url> \
       -e TOOL_TYPE=<hugo or mdbook> -e SECRET_KET=<Webhooks key> main:app
 """
 
@@ -124,7 +124,7 @@ app.logger.setLevel(LOG_LEVEL)
 @app.route("/api/docs", methods=["POST"])
 def merged_deploy():
     for k, _ in request.headers:
-        if 'X-GitHub' in k:
+        if 'X-Github' in k:
             git_hook = GitHubHook(secret_key, request, local_dir)
             break
         if 'X-Gitee' in k:

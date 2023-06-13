@@ -44,7 +44,7 @@ class GitHubHook:
             payload = self.__request.get_data()
             # 计算 16 进制的 hmac sha256 字符串
             h = hmac.new(self.__secret.encode('utf-8'), payload, digestmod='sha256')
-            return hmac.compare_digest(h.hexdigest(), self.__headers[self.__header_signature])
+            return hmac.compare_digest("sha256=" + h.hexdigest(), self.__headers[self.__header_signature])
         return True
     
     def body_filter(self) -> bool:
