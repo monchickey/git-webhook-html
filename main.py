@@ -160,7 +160,3 @@ def merged_deploy():
     log.info("%s document is generated", tool_type)
     return {'message': 'success'}, 201
 
-# TODO
-# 1. 拆分模块单独处理 hook 数据，拆分工具模块单独执行生成文档命令
-# 2. hugo 和 mdbook 生成命令初始化测试（hugo 使用现有的, mdbook 修改仓库结构符合标准结构）
-# 3. 整体集成运行测试（模拟发送请求即可，不需要真正推送）

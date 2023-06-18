@@ -59,9 +59,9 @@ class GiteeHook:
         if self.__secret and self.__headers[self.__header_signature]:
             payload = '{}\n{}'.format(self.__headers[self.__header_timestamp], 
                                       self.__secret).encode('utf-8')
-            # 计算 Base64 编码的 hmac sha256 字符串，同时结果需要进行 URL 编码
+            # 计算 Base64 编码的 hmac sha256 字符串
             h = hmac.new(self.__secret.encode('utf-8'), payload, digestmod='sha256')
-            return hmac.compare_digest(quote_plus(base64.b64encode(h.digest())), 
+            return hmac.compare_digest(base64.b64encode(h.digest()).decode('utf-8'), 
                                        self.__headers[self.__header_signature])
         return True
     
