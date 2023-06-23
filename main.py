@@ -98,9 +98,14 @@ else:
     if not stat or stat.returncode != 0:
         sys.exit(-1)
     log.info('repository %s initialized.', repo_url)
+    
+# 设置静态页面输出目录
+if os.getenv('OUTPUT') and os.path.isdir(os.getenv('OUTPUT')):
+    output_path = os.getenv('OUTPUT')
+else:
+    output_dir = '%s-output' % local_dir
+    output_path = os.path.join(script_dir, output_dir)
 
-output_dir = '%s-output' % local_dir
-output_path = os.path.join(script_dir, output_dir)
 # 初始化文档
 if tool_type == 'hugo':
     cmd_tool = HugoCmd(local_dir, output_path)

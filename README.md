@@ -45,7 +45,7 @@ gunicorn -w 1 -b 127.0.0.1:5000 -e GIT_URL=<git-repo-url> -e TOOL_TYPE=<hugo or 
 
 `secret-key` 表示 Git 服务器配置 WebHooks 时所指定的 key，要和后续仓库的配置保持一致，如果留空表示不进行验证，但是强烈建议配置。
 
-运行后默认会克隆仓库到脚本当前的目录，同时会将静态页面生成到当前目录下的 `<repo-name>-output` 中。
+运行后默认会克隆仓库到脚本当前的目录，同时会将静态页面生成到当前目录下的 `<repo-name>-output` 中，如果想设置单独的静态页面输出目录，需要设置 `OUTPUT` 环境变量指定输出目录，并且在运行程序前创建好它。
 
 ### 3. 配置 nginx 代理 Webhooks 请求和静态页面
 
@@ -83,20 +83,28 @@ gunicorn -w 1 -b 127.0.0.1:5000 -e GIT_URL=<git-repo-url> -e TOOL_TYPE=<hugo or 
 
 ### 4. 在仓库设置 WebHooks
 
-对于 GitHub 仓库首先进入仓库首页，依次点击：Settings - Webhooks - Add webhook：
+对于 GitHub 仓库首先进入仓库首页，依次点击：“Settings - Webhooks - Add webhook”，配置内容如下：
 
-Payload URL 中输入：`http://example.com/api/docs`，实际运行时请将 `example.com` 替换为实际的主机地址，建议开启 HTTPS 以保证安全。
+1. Payload URL 中输入：`http://example.com/api/docs`，实际运行时请将 `example.com` 替换为实际的主机地址，建议开启 HTTPS 以保证安全。
 
-Content type 选择：`application/json`
+2. Content type 选择：`application/json`
 
-Secret 输入认证密钥，要和上面启动程序时指定的 `secret-key` 保持一致。
+3. Secret 输入认证密钥，要和上面启动程序时指定的 `secret-key` 保持一致。
 
-事件类型选择默认的 "Just the `push` event. " 即只在 push 事件时触发 Webhooks。
+4. 事件类型选择默认的 "Just the `push` event. " 即只在 push 事件时触发 Webhooks。
 
-勾选 "Active" 表示激活 Webhooks。
+5. 勾选 "Active" 表示激活 Webhooks。
 
-最后点击 Add webhook 完成添加，添加后默认会发送一条 `ping` 事件的消息。
+6. 最后点击 Add webhook 完成添加，添加后默认会发送一条 `ping` 事件的消息。
 
-之后当仓库提交更新并推送时，就会自动触发 Webhooks 调用我们启动的服务来更新页面。
+之后当仓库有新的 `push` 事件时，就会自动触发 Webhooks 调用我们启动的服务来更新页面。
 
-对于 Gitee 仓库的 Webhooks 配置方式类似。
+对于 Gitee 仓库的 Webhooks 配置方式类似，也是进入仓库首页，依次点击：“管理 - WebHooks - 添加 webHook”，配置内容如下：
+
+1. URL 输入我们运行服务的实际地址，和上面一样。
+2. WebHook 密码/签名密钥选择 “签名密钥”，然后输入认证的密钥，和上面的 `secret-key` 保持一致。
+3. 事件选择 `Push`。
+4. 勾选 “激活” 选项。
+5. 点击 “添加” 按钮完成添加，添加后默认会发送一条 `push` 事件的测试消息。
+
+之后当仓库有新的 `push` 事件时，就会触发 Webhooks 了。
