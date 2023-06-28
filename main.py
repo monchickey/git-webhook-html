@@ -9,6 +9,7 @@ import argparse
 import logging
 
 from pathlib import Path
+from datetime import datetime
 
 from logging.handlers import RotatingFileHandler
 
@@ -43,7 +44,7 @@ log_path = os.path.join(script_dir, LOG_DIR)
 if not Path(log_path).is_dir():
     Path(log_path).mkdir()
 log_file = Path(log_path) / Path(PROG_NAME)
-log_file = '{}.log'.format(str(log_file))
+log_file = '{}-{}.log'.format(str(log_file), datetime.now().strftime('%Y%m%d%H%M%S'))
 
 log = logging.getLogger('')
 log.setLevel(LOG_LEVEL)
