@@ -11,10 +11,10 @@ import flask
 log = logging.getLogger(__name__)
 
 class GiteeHook:
-    """Gitee WebHooks 处理
+    """Gitee Webhooks 处理
     """
     def __init__(self, secret: str, req: flask.Request, repo_name: str) -> None:
-        """GitHub WebHooks 处理类初始化变量
+        """Gitee Webhooks 处理类初始化变量
         Args:
             secret: 设定的签名密钥
             req: HTTP 请求内容
@@ -31,7 +31,7 @@ class GiteeHook:
         self.__timestamp_limit = 3600000
 
     def header_check(self) -> bool:
-        """WebHooks Header 请求正确性检查
+        """Webhooks Header 请求正确性检查
         """
         if (self.__header_event not in self.__headers or 
             self.__headers[self.__header_event] != 'Push Hook'):
@@ -54,7 +54,7 @@ class GiteeHook:
         return True
     
     def signature(self) -> bool:
-        """WebHooks 签名校验
+        """Webhooks 签名校验
         """
         if self.__secret and self.__headers[self.__header_signature]:
             payload = '{}\n{}'.format(self.__headers[self.__header_timestamp], 
@@ -66,7 +66,7 @@ class GiteeHook:
         return True
     
     def body_filter(self) -> bool:
-        """WebHooks 请求正文处理
+        """Webhooks 请求正文处理
         """
         try:
             r = self.__request.get_json()

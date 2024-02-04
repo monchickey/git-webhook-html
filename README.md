@@ -3,6 +3,7 @@
 ## 1. 支持的 Git Webhooks
 - [x] GitHub
 - [x] Gitee
+- [x] Codeup 
 
 ## 2. 支持的页面生成工具
 - [x] Hugo
@@ -106,5 +107,15 @@ gunicorn -w 1 -b 127.0.0.1:5000 -e GIT_URL=<git-repo-url> -e TOOL_TYPE=<hugo or 
 3. 事件选择 `Push`。
 4. 勾选 “激活” 选项。
 5. 点击 “添加” 按钮完成添加，添加后默认会发送一条 `push` 事件的测试消息。
+
+对于阿里云 Codeup 仓库点击仓库的设置，依次选择 “Webhooks - 新建 Webhook”，配置内容如下：
+
+1. URL 输入我们服务运行的实际地址，和上面一样。
+2. 填写 Secret Token，然后填写密钥，值和上面的 `secret-key` 保持一致。
+3. 触发器勾选 “推送事件”。
+4. 点击 “确定” 按钮完成添加。
+5. 添加后点击 “操作 - 测试 Webhook” 即可发送一条测试消息。
+
+**注意**：阿里云 Codeup 仓库配置部署密钥，要求设置 IP 白名单，请根据实际提示进行设置。
 
 之后当仓库有新的 `push` 事件时，就会触发 Webhooks 了。

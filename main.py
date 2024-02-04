@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # coding=utf-8
-"""接收 GitHub 或 Gitee 的 Webhooks 并运行工具将仓库中的 Markdown 生成为 HTML 静态页面
+"""接收 GitHub, Gitee 或 Codeup 的 Webhooks 并运行工具将仓库中的 Markdown 生成为 HTML 静态页面
 支持的页面生成工具: Hugo、mdBook
 """
 import os
 import sys
-import argparse
 import logging
 
 from pathlib import Path
@@ -20,6 +19,7 @@ import util
 
 from github_hook import GitHubHook
 from gitee_hook import GiteeHook
+from codeup_hook import CodeupHook
 from hugo_cmd import HugoCmd
 from mdbook_cmd import MdbookCmd
 
@@ -135,6 +135,9 @@ def merged_deploy():
             break
         if 'X-Gitee' in k:
             git_hook = GiteeHook(secret_key, request, local_dir)
+            break
+        if 'X-Codeup' in k:
+            git_hook = CodeupHook(secret_key, request, local_dir)
             break
     else:
         return {'message': 'headers error!'}, 400
