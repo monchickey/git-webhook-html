@@ -9,6 +9,8 @@
 - [x] Hugo
 - [x] mdBook
 
+## 3. 支持文档渲染的前置或后置命令
+
 ## 安装配置
 
 ### 1. 前提条件
@@ -36,6 +38,11 @@ cd git-webhook-html
 
 ```bash
 gunicorn -w 1 -b 127.0.0.1:5000 -e GIT_URL=<git-repo-url> -e TOOL_TYPE=<hugo or mdbook> -e SECRET_KET=<secret-key> main:app
+# 运行前置命令
+gunicorn -w 1 -b 127.0.0.1:5000 -e GIT_URL=<git-repo-url> \
+    -e TOOL_TYPE=<hugo or mdbook> -e SECRET_KET=<secret-key> \
+    -e PRE_CMD="bash -c \"if [[ ! -f code.md]]; then python3 code.py; fi;\"" \
+    main:app
 ```
 
 其中：
@@ -45,6 +52,11 @@ gunicorn -w 1 -b 127.0.0.1:5000 -e GIT_URL=<git-repo-url> -e TOOL_TYPE=<hugo or 
 `TOOL_TYPE` 指定工具类型，当前只支持 hugo 和 mdBook。
 
 `secret-key` 表示 Git 服务器配置 WebHooks 时所指定的 key，要和后续仓库的配置保持一致，如果留空表示不进行验证，但是强烈建议配置。
+
+前置或后置命令支持：
+1. `PRE_CMD` 可以指定前置命令，即可以在渲染文档前运行一些预处理的命令。
+2. `POST_CMD` 可以指定后置命令，可以在渲染文档后执行一些特定的操作。
+3. 默认情况下前置或后置命令任何一个执行失败，则请求过程直接失败，如果要忽略命令是否成功继续向下执行可以指定 `-e RELAXED=ON` 开启宽松模式，这样即使命令执行失败，仍然会继续向下执行。
 
 运行后默认会克隆仓库到脚本当前的目录，同时会将静态页面生成到当前目录下的 `<repo-name>-output` 中，如果想设置单独的静态页面输出目录，需要设置 `OUTPUT` 环境变量指定输出目录，并且在运行程序前创建好它。
 

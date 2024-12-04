@@ -22,9 +22,11 @@ from gitee_hook import GiteeHook
 from codeup_hook import CodeupHook
 from hugo_cmd import HugoCmd
 from mdbook_cmd import MdbookCmd
+from additional_cmd import AdditionalCmd
 
 """gunicorn -w 1 -b 127.0.0.1:5001 -e GIT_URL=<clone-url> \
-      -e TOOL_TYPE=<hugo or mdbook> -e SECRET_KET=<Webhooks key> main:app
+      -e TOOL_TYPE=<hugo or mdbook> -e PRE_CMD="python3 generate_summary.py" \
+      -e SECRET_KET=<Webhooks key> main:app
 """
 
 # 日志目录
@@ -74,6 +76,22 @@ secret_key = ''
 if os.getenv('SECRET_KEY'):
     secret_key = os.getenv('SECRET_KEY')
 
+# 前置命令
+pre_cmd = ''
+if os.getenv('PRE_CMD'):
+    pre_cmd = os.getenv('PRE_CMD')
+    log.info("Prefix command: [%s]", pre_cmd)
+# 后置命令
+post_cmd = ''
+if os.getenv('POST_CMD'):
+    post_cmd = os.getenv('POST_CMD')
+    log.info("Postfix command: [%s]", post_cmd)
+# 宽松模式：命令执行失败后继续往下执行
+relaxed = False
+if os.getenv('RELAXED'):
+    relaxed = True
+
+
 # 检查 git 命令
 stat = util.execute_command('git --version')
 if not stat or stat.returncode != 0:
@@ -107,15 +125,21 @@ else:
     output_dir = '%s-output' % local_dir
     output_path = os.path.join(script_dir, output_dir)
 
+# 初始化附加命令执行实例
+add_cmd = AdditionalCmd(prefix_cmd=pre_cmd, 
+                        postfix_cmd=post_cmd, 
+                        workdir=local_dir,
+                        relaxed=relaxed)
+
 # 初始化文档
 if tool_type == 'hugo':
-    cmd_tool = HugoCmd(local_dir, output_path)
+    cmd_tool = HugoCmd(local_dir, output_path, add_cmd)
     if not cmd_tool.build():
         log.error("Failed to initialize hugo document")
         sys.exit(-1)
     log.info("hugo document is initialized")
 elif tool_type == 'mdbook':
-    cmd_tool = MdbookCmd(local_dir, output_path)
+    cmd_tool = MdbookCmd(local_dir, output_path, add_cmd)
     if not cmd_tool.build():
         log.error("Failed to initialize mdbook document")
         sys.exit(-1)
