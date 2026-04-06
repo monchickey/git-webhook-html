@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding=utf-8
 """接收 GitHub, Gitee 或 Codeup 的 Webhooks 并运行工具将仓库中的 Markdown 生成为 HTML 静态页面
-支持的页面生成工具: Hugo、mdBook
+支持的页面生成工具: Hugo、mdBook 和 Hexo
 """
 import os
 import sys
@@ -22,10 +22,11 @@ from gitee_hook import GiteeHook
 from codeup_hook import CodeupHook
 from hugo_cmd import HugoCmd
 from mdbook_cmd import MdbookCmd
+from hexo_hook import HexoCmd
 from additional_cmd import AdditionalCmd
 
 """gunicorn -w 1 -b 127.0.0.1:5001 -e GIT_URL=<clone-url> \
-      -e TOOL_TYPE=<hugo or mdbook> -e PRE_CMD="python3 generate_summary.py" \
+      -e TOOL_TYPE=<hugo or mdbook or hexo> -e PRE_CMD="python3 generate_summary.py" \
       -e SECRET_KET=<Webhooks key> main:app
 """
 
@@ -36,7 +37,7 @@ LOG_LEVEL = logging.DEBUG
 # 程序名
 PROG_NAME = 'git-webhook-html'
 # 支持工具的种类
-TOOL_TYPES = ('hugo', 'mdbook')
+TOOL_TYPES = ('hugo', 'mdbook', 'hexo')
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
@@ -135,15 +136,21 @@ add_cmd = AdditionalCmd(prefix_cmd=pre_cmd,
 if tool_type == 'hugo':
     cmd_tool = HugoCmd(local_dir, output_path, add_cmd)
     if not cmd_tool.build():
-        log.error("Failed to initialize hugo document")
+        log.error("Failed to initialize Hugo document.")
         sys.exit(-1)
-    log.info("hugo document is initialized")
+    log.info("Hugo document is initialized.")
 elif tool_type == 'mdbook':
     cmd_tool = MdbookCmd(local_dir, output_path, add_cmd)
     if not cmd_tool.build():
-        log.error("Failed to initialize mdbook document")
+        log.error("Failed to initialize mdBook document.")
         sys.exit(-1)
-    log.info("mdbook document is initialized")
+    log.info("mdBook document is initialized.")
+elif tool_type == 'hexo':
+    cmd_tool = HexoCmd(local_dir, output_path, add_cmd)
+    if not cmd_tool.build():
+        log.error("Failed to initialize hexo document.")
+        sys.exit(-1)
+    log.info("Hexo document is initialized.")
 else:
     sys.exit(-1)
 

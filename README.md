@@ -8,6 +8,7 @@
 ## 2. 支持的页面生成工具
 - [x] Hugo
 - [x] mdBook
+- [x] Hexo 
 
 ## 3. 支持文档渲染的前置或后置命令
 
@@ -17,7 +18,7 @@
 1. Python 3.6+
 2. Python 依赖：Flask 和 Gunicorn
 3. Git 客户端
-4. 根据生成页面的种类安装：hugo 或 mdbook 环境
+4. 根据生成页面的种类安装：Hugo、mdBook 或 Hexo 环境，其中 Hexo 环境还需要依赖 npm 环境
 5. Web 服务器，建议使用 nginx 提供访问
 
 需要的 Python 依赖有：Flask 和 Gunicorn，可以使用 pip 工具安装：
