@@ -61,6 +61,8 @@ gunicorn -w 1 -b 127.0.0.1:5000 -e GIT_URL=<git-repo-url> \
 
 运行后默认会克隆仓库到脚本当前的目录，同时会将静态页面生成到当前目录下的 `<repo-name>-output` 中，如果想设置单独的静态页面输出目录，需要设置 `OUTPUT` 环境变量指定输出目录，并且在运行程序前创建好它。
 
+子模块支持：默认情况下，初次拉取仓库或后续接收 Webhooks 时更新内容不会更新子模块，指定参数 `-e UPDATE_SUBMODULES=ON` 可以开启子模块更新，初次拉取或后续更新仓库时都会递归更新子模块。
+
 ### 3. 配置 nginx 代理 Webhooks 请求和静态页面
 
 假设工作目录为：`/opt/git-webhook-html`，仓库的输出目录为：`/opt/git-webhook-html/example-output`，nginx 的配置示例如下：

@@ -91,7 +91,10 @@ if os.getenv('POST_CMD'):
 relaxed = False
 if os.getenv('RELAXED'):
     relaxed = True
-
+# 是否开启仓库子模块拉取和更新
+update_submodules = False
+if os.getenv('UPDATE_SUBMODULES'):
+    update_submodules = True
 
 # 检查 git 命令
 stat = util.execute_command('git --version')
@@ -108,13 +111,17 @@ if os.path.exists(local_dir):
         log.error("File exists in %s", local_dir)
         sys.exit(-1)
     # 更新仓库
-    stat = util.execute_command('cd {} && git pull --recurse-submodules'.format(local_dir))
+    pull_cmd = 'git pull'
+    if update_submodules:
+        pull_cmd = 'git pull --recurse-submodules'
+    stat = util.execute_command('cd {} && {}'.format(local_dir, pull_cmd))
     if not stat or stat.returncode != 0:
         sys.exit(-1)
     log.info("repository %s updated.", repo_url)
 else:
     # 初次克隆仓库
-    stat = util.execute_command('git clone --recursive {}'.format(repo_url))
+    recursive = '--recursive' if update_submodules else ''
+    stat = util.execute_command('git clone {} {}'.format(recursive, repo_url))
     if not stat or stat.returncode != 0:
         sys.exit(-1)
     log.info('repository %s initialized.', repo_url)
@@ -189,7 +196,10 @@ def merged_deploy():
     
     # 执行生成文档操作
     # 首先更新仓库
-    stat = util.execute_command('cd {} && git pull --recurse-submodules'.format(local_dir))
+    pull_cmd = 'git pull'
+    if update_submodules:
+        pull_cmd = 'git pull --recurse-submodules'
+    stat = util.execute_command('cd {} && {}'.format(local_dir, pull_cmd))
     if not stat or stat.returncode != 0:
         log.error("Failed to update repository: %s", repo_url)
         return {'message': 'repo error!'}, 500
